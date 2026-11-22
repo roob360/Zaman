@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0d1020">
+<meta name="color-scheme" content="light dark">
+<title>Zaman: Simulator Peradaban</title>
+<meta name="description" content="Simulator peradaban berbasis individu dengan logika dunia nyata.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zaman">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="app">
+
+  <aside id="side">
+    <header id="brand">
+      <img src="icons/icon.svg" alt="" width="28" height="28">
+      <div><div class="t-headline">Zaman</div><div class="t-footnote sub">Simulator peradaban</div></div>
+    </header>
+
+    <nav id="nav" aria-label="Menu utama">
+      <button data-tab="dunia" class="on"><i data-ic="globe"></i><span>Dunia</span></button>
+      <button data-tab="dewa"><i data-ic="wand"></i><span>Dewa</span></button>
+      <button data-tab="lapisan"><i data-ic="layers"></i><span>Lapisan</span></button>
+      <button data-tab="bangsa"><i data-ic="flag"></i><span>Bangsa</span></button>
+      <button data-tab="log"><i data-ic="list"></i><span>Log</span></button>
+      <button data-tab="sistem"><i data-ic="gear"></i><span>Sistem</span></button>
+    </nav>
+
+    <div id="panel">
+      <div id="grab" aria-hidden="true"></div>
+
+      <section data-tab="dunia" class="on">
+        <h2 class="t-title-3-emphasized">Skenario</h2>
+        <label class="row"><span>Preset</span><select id="preset"></select></label>
+        <div class="row">
+          <label class="grow"><span>Seed dunia</span><input id="seed" type="number" min="1" step="1" inputmode="numeric"></label>
+          <button id="btnRand" class="b" title="Seed acak" type="button">Acak</button>
+        </div>
+        <label class="row"><span>Populasi maksimum</span>
+          <select id="cap"><option value="1000">1.000</option><option value="2000" selected>2.000</option><option value="3000">3.000</option></select></label>
+        <div id="groups"></div>
+        <p class="note t-subheadline" id="placeHint"></p>
+        <div class="row gap">
+          <button id="btnStart" class="b pri grow" type="button">Mulai simulasi</button>
+        </div>
+        <h3 class="t-callout-emphasized">Lompat waktu</h3>
+        <div class="row gap wrap">
+          <button class="b jump" data-n="50" type="button">+50</button>
+          <button class="b jump" data-n="200" type="button">+200</button>
+          <button class="b jump" data-n="500" type="button">+500</button>
+          <button class="b jump" data-n="1000" type="button">+1000 th</button>
+        </div>
+      </section>
+
+      <section data-tab="dewa">
+        <h2 class="t-title-3-emphasized">Alat dewa</h2>
+        <div id="tools" class="tools"></div>
+        <div id="toolOpts"></div>
+        <label class="row" id="brushRow"><span>Ukuran kuas <b id="brushVal">4</b></span><input id="brushR" type="range" min="1" max="12" value="4"></label>
+        <p class="note t-subheadline" id="toolHint">Pilih alat, lalu sentuh atau klik peta.</p>
+      </section>
+
+      <section data-tab="lapisan">
+        <h2 class="t-title-3-emphasized">Lapisan peta</h2>
+        <div id="overlays" class="seg wrapseg" role="group" aria-label="Lapisan"></div>
+        <label class="row sw"><span>Tampilkan individu</span><input type="checkbox" id="swAgents" checked></label>
+        <label class="row sw"><span>Wilayah negara</span><input type="checkbox" id="swBorders" checked></label>
+        <label class="row sw"><span>Nama kota</span><input type="checkbox" id="swLabels" checked></label>
+        <div id="legend" class="legend"></div>
+      </section>
+
+      <section data-tab="bangsa">
+        <h2 class="t-title-3-emphasized">Peringkat bangsa</h2>
+        <div id="nations" class="list"></div>
+        <h3 class="t-callout-emphasized">Populasi per bangsa</h3>
+        <canvas id="chart" width="560" height="200"></canvas>
+        <h3 class="t-callout-emphasized">Linimasa era</h3>
+        <div id="eraTl" class="tl"></div>
+        <h3 class="t-callout-emphasized">Penyebab kematian</h3>
+        <div id="causes" class="list"></div>
+      </section>
+
+      <section data-tab="log">
+        <h2 class="t-title-3-emphasized">Peristiwa</h2>
+        <div id="log" class="list"></div>
+      </section>
+
+      <section data-tab="sistem">
+        <h2 class="t-title-3-emphasized">Simpan dan muat</h2>
+        <div class="row gap wrap">
+          <button id="btnSave" class="b" type="button">Simpan cepat</button>
+          <button id="btnLoad" class="b" type="button">Muat cepat</button>
+        </div>
+        <div class="row gap wrap">
+          <button id="btnExport" class="b" type="button">Ekspor file</button>
+          <button id="btnImport" class="b" type="button">Impor file</button>
+          <input id="fileIn" type="file" accept=".json,application/json" hidden>
+        </div>
+        <label class="row sw"><span>Simpan otomatis tiap 100 tahun</span><input type="checkbox" id="swAuto" checked></label>
+        <p class="note t-subheadline" id="saveInfo"></p>
+        <h2 class="t-title-3-emphasized">Tampilan</h2>
+        <label class="row"><span>Tema</span>
+          <select id="theme"><option value="auto">Ikuti sistem</option><option value="light">Terang</option><option value="dark">Gelap</option></select></label>
+        <h2 class="t-title-3-emphasized">Tentang</h2>
+        <p class="note t-subheadline">Zaman 0.1. Satu langkah sama dengan satu tahun. Semua perilaku muncul dari aturan individu, bukan skrip.</p>
+      </section>
+    </div>
+  </aside>
+
+  <main id="stage">
+    <div id="toolbar">
+      <div class="glass grp">
+        <button id="btnPlay" class="ib" type="button" aria-label="Jalankan atau jeda"><i data-ic="play"></i></button>
+        <button id="btnStep" class="ib" type="button" aria-label="Maju satu tahun"><i data-ic="step"></i></button>
+      </div>
+      <div class="glass grp seg" id="speed" role="group" aria-label="Kecepatan">
+        <button data-yps="3">1x</button><button data-yps="12" class="on">4x</button><button data-yps="40">13x</button><button data-yps="150">50x</button>
+      </div>
+      <div class="glass grp stat" aria-live="off">
+        <span class="t-body-emphasized" id="yr">Tahun 0</span>
+        <span class="dot"></span>
+        <span class="t-body" id="pop">0 jiwa</span>
+        <span class="dot hide-s"></span>
+        <span class="t-body hide-s" id="eraName">-</span>
+      </div>
+      <div class="glass grp seg" id="mode" role="group" aria-label="Mode sentuh">
+        <button data-mode="pilih" class="on" title="Geser untuk menggeser peta, ketuk untuk memilih">Pilih</button>
+        <button data-mode="kuas" title="Sentuh dan seret untuk memakai alat dewa">Kuas</button>
+      </div>
+    </div>
+
+    <div id="viewport">
+      <canvas id="map"></canvas>
+      <div id="zoomBtns" class="glass grp col">
+        <button id="zIn" class="ib" type="button" aria-label="Perbesar">+</button>
+        <button id="zOut" class="ib" type="button" aria-label="Perkecil">-</button>
+        <button id="zFit" class="ib" type="button" aria-label="Pas layar"><i data-ic="fit"></i></button>
+      </div>
+      <div id="tip" class="tip" hidden></div>
+      <div id="toast" class="toast" hidden></div>
+      <div id="banner" class="banner" hidden></div>
+    </div>
+  </main>
+
+  <aside id="insp" class="glass-p" hidden>
+    <header>
+      <div class="t-headline" id="inspTitle">Detail</div>
+      <button id="inspClose" class="ib" type="button" aria-label="Tutup"><i data-ic="x"></i></button>
+    </header>
+    <div id="inspBody"></div>
+  </aside>
+</div>
+
+<script src="js/ui.js"></script>
+</body>
+</html>

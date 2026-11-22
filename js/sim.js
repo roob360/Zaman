@@ -179,7 +179,7 @@ function pickSpot(world, kind, skip) {
     if (cnt < 60) continue;
     if (kind === 'gurun') { if (dR[i] < 2 || dR[i] > 4 || des / cnt < 0.5) continue; sc = des / cnt * 10 - f; }
     else if (kind === 'gurundalam') { if (dR[i] < 6 || des / cnt < 0.6) continue; sc = des / cnt * 10 - f; }
-    else if (kind === 'sungai') { if (dR[i] > 1) continue; sc = f + ri * 0.1 + (biome[i] === 4 || biome[i] === 6 ? 3 : 0); }
+    else if (kind === 'sungai') { if (dR[i] > 1 || biome[i] === 3 || biome[i] >= 9) continue; sc = f + ri * 0.1 + (biome[i] === 4 || biome[i] === 6 ? 3 : 0); }
     else if (kind === 'tundra') { if (biome[i] !== 9 && biome[i] !== 8) continue; sc = -f; }
     else { sc = f + wild[i] * 20; }
     if (sc > bv) { bv = sc; best = { x, y }; }

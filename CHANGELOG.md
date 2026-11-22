@@ -16,12 +16,29 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Pe
 - Ikon aplikasi (SVG dan PNG) dan skrip pembuatnya (`tools/make_icon.py`).
 - Dokumen proyek: `AGENTS.md`, `CHANGELOG.md`, `README.md`, `docs/ROADMAP.md`, `docs/SIMULASI.md`.
 
+### Ditambahkan (UI dan PWA)
+- Antarmuka adaptif macOS 27: sidebar, toolbar kaca, kanvas piksel, inspektur (layar lebar); tab bar dan bottom sheet (ponsel dan tablet kecil).
+- Peta: medan dengan bayangan relief, sungai, tutupan hutan, wilayah dan batas bangsa, sprite permukiman per era, titik individu, label kota, zoom dan geser (mouse, sentuh, cubit).
+- Lapisan: Normal, Biom, Suhu, Hujan, Hutan, Politik.
+- Panel skenario: 7 preset, seed, hingga 4 kelompok (jumlah, IQ, agresi, lokasi, pemimpin), penempatan manual lewat peta.
+- Alat dewa di UI: kuas medan, munculkan, ubah sifat, angkat pemimpin, matikan, teknologi, pangan, paceklik, wabah, murka, perang, damai, aliansi.
+- Inspektur individu, kota, dan bangsa. Peringkat bangsa, grafik populasi, linimasa era, penyebab kematian, log peristiwa.
+- Simpan cepat dan otomatis (IndexedDB), ekspor dan impor berkas.
+- PWA: `manifest.webmanifest` dan `sw.js`.
+- Skrip `tools/shot.py` untuk tangkapan layar uji.
+
+### Diperbaiki
+- Token desain: alias `{nama}` yang belum diresolusi di `css/tokens.css` kini menjadi `var(--nama)`.
+- **[MODEL]** `pickSpot('sungai')` tidak lagi memilih gurun, tundra, atau gunung sebagai titik awal. Sebelumnya seed 4 punah pada tahun 124. Uji 14 seed, 600 tahun: tidak ada kepunahan pada konfigurasi dua kelompok.
+- Preview Worker: koordinat titik awal dihitung berurutan (bug referensi sebelum terisi).
+
 ### Diubah
 - Penomoran urut pada setiap entri log peristiwa (`n`), agar Worker hanya mengirim log baru.
 
 ### Diketahui
 - Pada pertengahan permainan muncul banyak politas kecil (contoh: 8 politas dan 46 permukiman pada tahun 1500). Perlu ditinjau.
-- Belum ada UI, PWA, bencana alam, kepercayaan, dan mode uji berulang (lihat `docs/ROADMAP.md`).
+- Variasi hasil antar seed besar (kelompok kecil sering bertahan di sekitar 40 sampai 60 jiwa sebelum pertanian ditemukan). Dianggap wajar, perlu dikaji bila ingin hasil lebih stabil.
+- Belum ada bencana alam, kepercayaan, dan mode uji berulang (lihat `docs/ROADMAP.md`).
 
 ## Aturan pencatatan
 

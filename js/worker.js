@@ -61,11 +61,13 @@ self.onmessage = function (e) {
     switch (m.t) {
       case 'preview': {
         seed = m.seed >>> 0 || 1; running = false; cap = m.cap || cap;
-        const w = genWorld(seed), coords = (m.spots || []).map((k, i, arr) => pickSpot(w, k, arr.slice(0, i).map((_, j) => coordsPrev[j]).filter(Boolean)));
-        var coordsPrev = coords; fresh(w, []);
+        const w = genWorld(seed), coords = [];
+        for (const k of (m.spots || [])) coords.push(pickSpot(w, k, coords.slice()));
+        fresh(w, []);
         postMessage({ type: 'ready', techs: TECHS, eraNames: ERA_NAME, coords });
         worldMsg(); snap(); break;
       }
+      case 'spots': { const coords = []; for (const k of (m.spots || [])) coords.push(pickSpot(S.world, k, coords.slice())); postMessage({ type: 'spots', coords }); break; }
       case 'start': {
         cap = m.cap || cap; running = false; acc = 0; fresh(S.world, m.groups);
         postMessage({ type: 'started' }); worldMsg(); waiting = false; snap(); break;
