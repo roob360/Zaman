@@ -82,10 +82,10 @@ const LEGENDS = {
 
 /* ---------- state ---------- */
 const st = {
-  phase: 'setup', running: false, speed: 12, world: null, snap: null, tab: 'dunia',
+  phase: 'setup', running: false, speed: 0.4, world: null, snap: null, tab: 'dunia',
   ov: 'normal', showAg: true, showBo: true, showLb: true, tool: 'pilih', mode: 'pilih', brush: 4,
   o: { n: 30, iq: .5, ag: .4, leader: 'auto', newP: false, tech: 'agri', frac: .3, yrs: 3, tIq: .8, tAg: .3 },
-  sel: null, pend: null, groups: [], coords: [], seed: 1, cap: 2000, techs: [], hover: null, lastSaveYear: 0, autoOn: true,
+  sel: null, pend: null, tick: 0, season: 0, tickAt: 0, groups: [], coords: [], seed: 1, cap: 2000, techs: [], hover: null, lastSaveYear: 0, autoOn: true,
   pols: new Map(), polName: new Map()
 };
 const view = { x: 0, y: 0, z: 6 };
@@ -117,9 +117,10 @@ function requestSave() { return new Promise(res => { const id = ++reqSeq; saveRe
 
 /* ---------- snapshot ---------- */
 function onSnap(m) {
-  st.snap = m; st.running = m.running;
+  if (m.tick !== st.tick) { st.tickAt = performance.now(); }
+  st.tick = m.tick; st.season = m.season; st.snap = m; st.running = m.running; st.seasonDirty = true;
   st.pols = new Map(m.pols.map(p => [p.id, p]));
-  $('#yr').textContent = 'Tahun ' + fmt(m.year);
+  updateDate();
   $('#pop').textContent = fmt(m.pop) + ' jiwa';
   $('#eraName').textContent = ERAS[m.stats.maxEra] || '-';
   setPlayIcon();
@@ -129,6 +130,23 @@ function onSnap(m) {
   if (now - lastPanel > 600) { lastPanel = now; updatePanels(); }
   if (now - lastInsp > 350) { lastInsp = now; renderInsp(); }
   if (st.autoOn && st.phase === 'run' && m.year - st.lastSaveYear >= 100 && m.pop > 0) { st.lastSaveYear = m.year; autosave(); }
+}
+const SN = {
+  trop: ['Awal Hujan', 'Puncak Hujan', 'Awal Kemarau', 'Puncak Kemarau'],
+  temp: ['Musim Semi', 'Musim Panas', 'Musim Gugur', 'Musim Dingin'],
+  pol: ['Pencairan', 'Panas Singkat', 'Gugur Cepat', 'Dingin Panjang']
+};
+const zoneOf = lat => lat < 0.28 ? 'trop' : lat < 0.62 ? 'temp' : 'pol';
+const phaseAt = (season, y) => (season + (y > (H - 1) / 2 ? 2 : 0)) % 4;
+function viewY() { const r = cv.getBoundingClientRect(); return clamp(Math.floor((r.height / 2 - view.y) / view.z), 0, H - 1); }
+let lastDate = '';
+function updateDate() {
+  const m = st.snap; if (!m) return;
+  const y = viewY(), lat = Math.abs(y - (H - 1) / 2) / ((H - 1) / 2), ph = phaseAt(m.season, y);
+  const stepMs = st.running ? 1000 / Math.max(0.05, st.speed) : 1e9, fr = st.running ? clamp((performance.now() - st.tickAt) / stepMs, 0, 0.999) : 0;
+  const day = 1 + Math.floor(fr * 91);
+  const t = m.tick === 0 ? 'Tahun 0' : 'Tahun ' + fmt(m.year) + ' · ' + SN[zoneOf(lat)][ph] + ' · hari ' + day;
+  if (t !== lastDate) { lastDate = t; $('#yr').textContent = t; }
 }
 function setPlayIcon() { $('#btnPlay').innerHTML = IC[st.running ? 'pause' : 'play']; }
 
@@ -145,6 +163,14 @@ const RT = [[58, 111, 216], [55, 196, 160], [232, 216, 74], [224, 72, 46]];
 const RR = [[217, 197, 138], [111, 191, 154], [42, 111, 208]];
 const RH = [[154, 122, 74], [79, 154, 60]];
 const SOIL = [154, 138, 90];
+// Warna musiman kosmetik: salju di lintang tinggi saat dingin, hutan gugur menguning, savana tropis mengering.
+function seasonTint(c, b, y, season) {
+  const lat = Math.abs(y - (H - 1) / 2) / ((H - 1) / 2), ph = phaseAt(season, y), z = zoneOf(lat), mix = (t, k) => [lerp(c[0], t[0], k), lerp(c[1], t[1], k), lerp(c[2], t[2], k)];
+  if (z !== 'trop' && ph === 3 && b !== 3 && b !== 10 && b !== 11) return mix([240, 244, 250], clamp((lat - 0.38) / 0.45, 0, 1) * 0.8);
+  if (z !== 'trop' && ph === 2 && (b === 6 || b === 8 || b === 4)) return mix([205, 125, 45], 0.28);
+  if (z === 'trop' && ph >= 2 && (b === 4 || b === 5 || b === 6)) return mix([205, 175, 100], ph === 3 ? 0.3 : 0.15);
+  return c;
+}
 function buildTerrain() {
   const w = st.world; if (!w) return;
   const ctx = terr.getContext('2d'), img = ctx.createImageData(W * SC, H * SC), d = img.data, ov = st.ov;
@@ -161,6 +187,7 @@ function buildTerrain() {
       if (ov === 'normal' && (b === 6 || b === 7 || b === 8)) { const k = clamp(w.cover[i], 0, 1); c = [lerp(SOIL[0], c[0], k), lerp(SOIL[1], c[1], k), lerp(SOIL[2], c[2], k)]; }
       if (ov === 'politik') c = c.map(v => lerp(v, 70, 0.6));
     }
+    if (land && ov === 'normal' && st.snap && st.snap.tick > 0) c = seasonTint(c, b, y, st.snap.season);
     let sh = 1;
     if (land && ov !== 'biom') {
       const hl = w.h[y * W + Math.max(0, x - 1)], hr = w.h[y * W + Math.min(W - 1, x + 1)], hu = w.h[Math.max(0, y - 1) * W + x], hd = w.h[Math.min(H - 1, y + 1) * W + x];
@@ -265,7 +292,13 @@ function drawGroupMarkers() {
   });
 }
 function groupPos(i) { const g = st.groups[i]; if (!g) return null; if (g.mx != null) return { x: g.mx, y: g.my }; return st.coords[i] || null; }
-function loop() { if (dirty) { dirty = false; render(); } requestAnimationFrame(loop); }
+let lastTerr = 0;
+function loop() {
+  const now = performance.now();
+  if (st.seasonDirty && st.world && now - lastTerr > 280) { st.seasonDirty = false; lastTerr = now; if (st.ov === 'normal') { buildTerrain(); dirty = true; } }
+  if (st.running) { updateDate(); }
+  if (dirty) { dirty = false; render(); } requestAnimationFrame(loop);
+}
 
 /* ---------- masukan peta ---------- */
 const ptrs = new Map(); let drag = null, pinch = null, lastBrush = 0;
@@ -458,7 +491,7 @@ function startSim(run = true) {
 }
 $$('.jump').forEach(b => b.onclick = () => {
   if (st.phase === 'setup') startSim(false);
-  let n = +b.dataset.n; toast('Melompat ' + n + ' tahun...'); while (n > 0) { const k = Math.min(500, n); post({ t: 'step', n: k }); n -= k; }
+  let n = +b.dataset.n * 4; toast('Melompat ' + b.dataset.n + ' tahun...'); while (n > 0) { const k = Math.min(500, n); post({ t: 'step', n: k }); n -= k; }
 });
 
 /* ---------- alat dewa ---------- */

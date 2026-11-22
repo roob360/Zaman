@@ -25,7 +25,7 @@ function snap() {
     job[i] = a.age < 15 ? -1 : a.job; iq[i] = a.iq * 255; ag[i] = a.ag * 255; hu[i] = a.hunger * 255; age[i] = Math.min(255, a.age);
   }
   const m = {
-    type: 'snap', year: S.year, pop: n, running,
+    type: 'snap', year: S.year, season: S.season, tick: S.tick, pop: n, running,
     ag: { x, y, id, pid, job, iq, ag, hu, age },
     sets: S.settlements.map(s => ({ id: s.id, x: s.x, y: s.y, pid: s.p.id, pop: s.members.length || s.pop, name: s.name, cap: s.p.cap === s, fs: +s.fs.toFixed(2), sat: +s.sat.toFixed(2) })),
     pols: S.polities.map(polInfo),

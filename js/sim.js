@@ -197,13 +197,25 @@ function createSim(sc) {
     world, year: 0, agents: [], settlements: [], polities: [], wars: [], log: [], hist: [], histStep: 5,
     aid: 1, sid: 1, pid: 1, fid: 1, climate: 1, owner: new Int16Array(N), ownerS: new Int16Array(N), cap: sc.cap || 2000,
     catchDirty: true, truce: {}, cause: { lapar: 0, haus: 0, perang: 0, wabah: 0, usia: 0, bencana: 0 }, births: 0, deaths: 0,
-    logN: 0, maxEra: 0, eraYear: [0, null, null, null, null, null], pcount: 0, wlog: 0
+    tick: 0, season: 0, logN: 0, maxEra: 0, eraYear: [0, null, null, null, null, null], pcount: 0, wlog: 0
   };
   const pct = v => Math.round(v * 100);
   function ev(type, txt) { S.log.push({ n: ++S.logN, y: S.year, t: type, x: txt }); if (S.log.length > 500) S.log.shift(); }
   function genName() { let s = ''; const n = 2 + ((rng() * 2) | 0); for (let i = 0; i < n; i++) s += SYL[(rng() * SYL.length) | 0]; return s[0].toUpperCase() + s.slice(1); }
   const traitClamp = v => v < 0.02 ? 0.02 : v > 0.98 ? 0.98 : v;
-  const softCap = s => [80, 160, 400, 800, 1600, 1e9][s.p.era];
+  // Profil musiman menurut lintang. Indeks fase 0..3. Sedang: semi, panas, gugur, dingin. Tropis: awal hujan, puncak hujan, awal kemarau, puncak kemarau.
+// farm: porsi panen tahunan yang jatuh pada tiap fase (jumlah 1). wild dan grow: pengali ketersediaan pangan liar dan pertumbuhan stok (rata-rata 1).
+const SEAS = {
+  trop: { farm: [0.30, 0.30, 0.25, 0.15], wild: [1.1, 1.2, 0.9, 0.8], grow: [1.2, 1.4, 0.9, 0.5] },
+  temp: { farm: [0, 0.15, 0.75, 0.10], wild: [0.9, 1.4, 1.2, 0.5], grow: [1.3, 1.9, 0.7, 0.1] },
+  pol: { farm: [0, 0.10, 0.90, 0], wild: [0.4, 2.0, 1.2, 0.4], grow: [0.5, 2.6, 0.8, 0.1] }
+};
+function seasonProfile(lat) {
+  const mix = (A, B, t) => ({ farm: A.farm.map((v, i) => v + (B.farm[i] - v) * t), wild: A.wild.map((v, i) => v + (B.wild[i] - v) * t), grow: A.grow.map((v, i) => v + (B.grow[i] - v) * t) });
+  if (lat <= 0.12) return SEAS.trop; if (lat >= 0.85) return SEAS.pol;
+  return lat < 0.45 ? mix(SEAS.trop, SEAS.temp, (lat - 0.12) / 0.33) : mix(SEAS.temp, SEAS.pol, (lat - 0.45) / 0.40);
+}
+const softCap = s => [80, 160, 400, 800, 1600, 1e9][s.p.era];
 
   function applyTechs(p) {
     const m = { farm: 1, craft: 1, weapon: 1, know: 1, med: 1, spoil: 1, span: 0, trade: 1 }, f = {}; let era = 0;
@@ -366,20 +378,23 @@ function createSim(sc) {
           case 5: if (a.hunger < 0.4) knowAdd += 0.22 * a.iq * (0.5 + a.sk[5]) * prod; break;
         }
         if (a.hunger < 0.4) knowAdd += 0.012 * a.iq * prod;
-        const j = a.job; a.sk[j] = Math.min(1, a.sk[j] + 0.035 * (0.4 + 0.6 * a.iq) * (0.6 + 0.4 * a.c) * (1 - a.sk[j]));
+        const j = a.job; a.sk[j] = Math.min(1, a.sk[j] + 0.25 * 0.035 * (0.4 + 0.6 * a.iq) * (0.6 + 0.4 * a.c) * (1 - a.sk[j]));
       }
       const D = (0.8 * s.pop + 4) * Math.sqrt(m.craft);
-      s.tools = s.tools * 0.94 + craftOut * m.craft * P.eff;
+      s.tools = s.tools * 0.9847 + 0.25 * craftOut * m.craft * P.eff;
       const toolF = 1 + 0.4 * Math.tanh(s.tools / D);
-      const Fh = Math.min(0.2 * s.stock, nF * 2.3 * (0.3 + 0.7 * s.stock / s.cmax) * Math.sqrt(toolF));
-      s.stock -= Fh; s.stock += 0.4 * s.stock * (1 - s.stock / s.cmax) + 0.01 * s.cmax; s.stock = clamp(s.stock, 0, s.cmax);
+      if (!s.sw) s.sw = seasonProfile(world.lat[s.y * W + s.x]);
+      const ph = (S.season + (s.y > (H - 1) / 2 ? 2 : 0)) % 4, sw = s.sw;
+      const Fh = Math.min(0.05 * s.stock, 0.25 * sw.wild[ph] * nF * 2.3 * (0.3 + 0.7 * s.stock / s.cmax) * Math.sqrt(toolF));
+      s.stock -= Fh; s.stock += 0.25 * sw.grow[ph] * (0.4 * s.stock * (1 - s.stock / s.cmax) + 0.01 * s.cmax); s.stock = clamp(s.stock, 0, s.cmax);
       const rainfed = !(P.flags.irrig || P.flags.wells);
-      const wth = rainfed ? clamp(1 + (S.climate - 1) * 1.6 + 0.12 * gauss(), 0.35, 1.5) : clamp(1 + (S.climate - 1) * 0.8 + 0.06 * gauss(), 0.6, 1.3);
+      if (S.season === 0 || s.wth == null) s.wth = rainfed ? clamp(1 + (S.climate - 1) * 1.6 + 0.12 * gauss(), 0.35, 1.5) : clamp(1 + (S.climate - 1) * 0.8 + 0.06 * gauss(), 0.6, 1.3);
+      const wth = s.wth;
       farmers.sort((x, y) => y - x); let farm = 0;
       for (let k = 0; k < farmers.length; k++) { const y = k < s.fy.length ? s.fy[k] : (s.fy.length ? 0.15 * s.fy[s.fy.length - 1] : 0); farm += farmers[k] * y * BASEF * m.farm * toolF * P.eff * wth; }
-      s.food += Fh + farm; s.prodFood = Fh + farm;
+      farm *= sw.farm[ph]; s.food += Fh + farm; s.prodFood = Fh + farm;
       s.mil = milPow; s.milEff = milPow * m.weapon * (0.75 + 0.25 * Math.tanh(s.tools / (s.counts[4] * 2 + 4)));
-      P.knowAdd += knowAdd;
+      P.knowAdd += 0.25 * knowAdd;
     }
     for (const P of S.polities) { P.know += 0.45 * P.knowAdd * P.mult.know * (1 + 0.04 * Math.min(10, P.contacts)); }
   }
@@ -387,14 +402,14 @@ function createSim(sc) {
   function trade() {
     for (const p of S.polities) p.tie = {};
     for (const s of S.settlements) {
-      const need = s.members.length * 0.95, def = need - s.food; if (def <= 0.5) continue; let remain = def;
+      const need = s.members.length * 0.475, def = need - s.food; if (def <= 0.5) continue; let remain = def;
       for (const o of s.nb) {
         if (remain <= 0.2) break; const t = o.s, d = o.d, P = s.p, Q = t.p, same = P === Q;
         if (!same && warBetween(P, Q)) continue;
         const range = 8 + (P.flags.roads ? 10 : 0) + (Q.flags.roads ? 6 : 0) + (P.flags.power ? 20 : 0); if (d > range) continue;
-        const sur = t.food - t.members.length * 1.25; if (sur <= 0.5) continue;
+        const sur = t.food - t.members.length * 0.62; if (sur <= 0.5) continue;
         const tr = s.counts[3] + t.counts[3];
-        const cap = 3 * tr * Math.max(P.mult.trade, Q.mult.trade) + (same && P.flags.writing ? 0.15 * def : 0) + (same ? 0.5 : 0); if (cap <= 0) continue;
+        const cap = 0.25 * (3 * tr * Math.max(P.mult.trade, Q.mult.trade) + (same && P.flags.writing ? 0.15 * def : 0) + (same ? 0.5 : 0)); if (cap <= 0) continue;
         const amt = Math.min(remain, sur, cap); t.food -= amt; s.food += amt * 0.95; remain -= amt;
         if (!same) { P.tie[Q.id] = (P.tie[Q.id] || 0) + amt; Q.tie[P.id] = (Q.tie[P.id] || 0) + amt; }
       }
@@ -402,16 +417,19 @@ function createSim(sc) {
   }
 
   function lifecycle() {
-    const births = [];
+    const births = [], Q = 0.25, yearEnd = S.season === 3;
     for (const s of S.settlements) {
       const P = s.p, ms = s.members; let need = 0;
       for (const a of ms) need += a.age < 15 ? 0.5 : (a.job === 4 ? 1.1 : (a.age > 60 ? 0.9 : 1));
-      s.needNow = need; const have = s.food, r = need > 0 ? Math.min(1, have / need) : 1;
-      s.fsRaw = need > 0 ? have / need : 1; s.fs = 0.6 * s.fs + 0.4 * Math.min(3, s.fsRaw);
-      s.food = r >= 1 ? have - need : 0; s.food *= (1 - Math.min(0.5, 0.22 * P.mult.spoil));
+      need *= Q * (1 + (((S.season + (s.y > (H - 1) / 2 ? 2 : 0)) % 4 === 3) ? 0.3 * clamp((world.lat[s.y * W + s.x] - 0.3) / 0.5, 0, 1) : 0)); s.needNow = need; const have = s.food, r = need > 0 ? Math.min(1, have / need) : 1;
+      if (s.yFood0 == null) s.yFood0 = Math.max(0, have - (s.prodFood || 0));
+      s.yNeed = (s.yNeed || 0) + need; s.yProd = (s.yProd || 0) + (s.prodFood || 0);
+      // Ketahanan pangan (fs) dihitung tahunan: persediaan awal tahun ditambah produksi, dibagi kebutuhan setahun.
+      if (yearEnd && s.yNeed > 0) { s.fsRaw = (s.yFood0 + s.yProd) / s.yNeed; s.fs = 0.6 * s.fs + 0.4 * Math.min(3, s.fsRaw); }
+      s.food = r >= 1 ? have - need : 0; s.food *= Math.pow(1 - Math.min(0.5, 0.22 * P.mult.spoil), Q);
       s.drinkCap = drinkCapOf(s); const n = ms.length; s.thirst = n > s.drinkCap ? 1 - s.drinkCap / n : 0;
       s.plague = s.forcePlague || 0; s.forcePlague = 0;
-      if (!s.plague && n >= 80 && rng() < 0.002 * (n / 80) * (P.flags.sanit ? 0.1 : 1) * (1 + 0.15 * Object.keys(P.tie).length)) {
+      if (!s.plague && n >= 80 && rng() < Q * 0.002 * (n / 80) * (P.flags.sanit ? 0.1 : 1) * (1 + 0.15 * Object.keys(P.tie).length)) {
         s.plague = 0.06 + 0.14 * rng(); if (n > 80) ev('wabah', `Wabah melanda ${s.name} (${P.name})`);
       }
       const soft = softCap(s), capF = Math.sqrt(clamp(1 - (S.agents.length + births.length) / S.cap, 0, 1));
@@ -419,23 +437,24 @@ function createSim(sc) {
       for (const a of ms) {
         if (!a.alive) continue;
         const wt = a.age < 15 ? 1.3 : a.age > 60 ? 1.2 : a.job === 4 ? 0.7 : a.job === -2 ? 0.2 : 1;
-        if (r >= 1) a.hunger = Math.max(0, a.hunger - 0.35); else a.hunger = Math.min(1, a.hunger + (1 - r) * 0.6 * wt);
+        if (r >= 1) a.hunger = Math.max(0, a.hunger - 0.35 * Q); else a.hunger = Math.min(1, a.hunger + (1 - r) * 0.6 * wt * Q);
         a.thirst = s.thirst; a.sat = clamp(1 - 1.2 * a.hunger - 0.8 * s.thirst + 0.1 * (a.a - 0.5), 0, 1); satSum += a.sat;
         const qb = (0.0004 * Math.exp(0.088 * a.age) + (a.age < 5 ? 0.05 : 0)) * P.mult.med;
         const qh = a.hunger > 0.5 ? (a.hunger - 0.5) * 0.9 * (a.age < 15 || a.age > 60 ? 1.5 : 1) : 0, qt = s.thirst * 0.25;
-        const qw = s.plague * (a.age < 5 || a.age > 55 ? 1.5 : 1) * P.mult.med, q = qb + qh + qt + qw;
+        const qw = s.plague * (a.age < 5 || a.age > 55 ? 1.5 : 1) * P.mult.med, qs = 1 - Math.pow(1 - Math.min(0.99, qb + qh + qt), Q), q = 1 - (1 - qs) * (1 - Math.min(0.99, qw));
         if (rng() < q) { const mx = Math.max(qb, qh, qt, qw); kill(a, mx === qh ? 'lapar' : mx === qt ? 'haus' : mx === qw ? 'wabah' : 'usia'); continue; }
-        a.age++;
+        if (yearEnd) a.age++;
         if (a.partner && !a.partner.alive) a.partner = null;
-        if (a.sex === 1 && a.partner && a.partner.s === s && a.age >= 16 && a.age <= 42) {
+        if (a.sex === 1 && a.partner && a.partner.s === s && a.age >= 16 && a.age <= 42 && S.tick - (a.lb || -99) >= 3) {
           const fert = [1, 1.12, 1.1, 1.05, 0.8, 0.45][P.era];
           const pb = 0.42 * fert * clamp((s.fs - 0.8) / 0.4, 0, 1) * (1 - a.hunger) * (1 - s.thirst) * (a.age > 36 ? 0.6 : 1) * capF * (n > soft ? 0.4 : 1);
-          if (rng() < pb) births.push(childOf(a, a.partner));
+          if (rng() < 1 - Math.pow(1 - Math.min(0.99, pb), Q)) { a.lb = S.tick; births.push(childOf(a, a.partner)); }
         }
       }
-      s.sat = ms.length ? satSum / ms.length : 1; s.sat = clamp(s.sat - s.resent, 0, 1); s.resent *= 0.9;
+      s.sat = ms.length ? satSum / ms.length : 1; s.sat = clamp(s.sat - s.resent, 0, 1); s.resent *= 0.975;
     }
     for (const b of births) { S.agents.push(b); S.births++; }
+    if (yearEnd) {
     // Perkawinan: utamakan pasangan sekelompok, bila tidak ada yang cocok (kerabat, selisih umur) cari di permukiman tetangga.
     // Perempuan pindah ke permukiman suami. Tanpa ini koloni kecil kehabisan pasangan non-kerabat lalu punah.
     const singF = new Map(), singM = new Map();
@@ -463,6 +482,7 @@ function createSim(sc) {
         if (!b) continue;
         a.partner = b; b.partner = a; b.s = s; const nf = S.fid++; a.fam = nf; b.fam = nf;
       }
+    }
     }
     S.agents = S.agents.filter(a => a.alive);
   }
@@ -671,11 +691,12 @@ function createSim(sc) {
   }
 
   function step() {
-    S.year++; S.births = 0; S.deaths = 0; S.climate = 1 + 0.12 * gauss();
+    S.tick++; const ph = (S.tick - 1) % 4; S.season = ph;
+    if (ph === 0) { S.year++; S.births = 0; S.deaths = 0; S.climate = 1 + 0.12 * gauss(); }
     for (const s of S.settlements) s.members.length = 0;
     for (const a of S.agents) a.s.members.push(a);
     removeEmpty();
-    if (S.catchDirty || S.year % 10 === 0) refreshCatch();
+    if (S.catchDirty || (ph === 0 && S.year % 10 === 0)) refreshCatch();
     for (const p of S.polities) { p.sets = []; p.pop = 0; p.knowAdd = 0; p.soldiers = 0; p.mil = 0; p.milEff = 0; p.near = {}; }
     for (const s of S.settlements) { s.p.sets.push(s); s.pop = s.members.length; s.p.pop += s.pop; }
     for (const p of S.polities.slice()) {
@@ -692,19 +713,16 @@ function createSim(sc) {
     }
     for (const s of S.settlements) for (const o of s.nb) if (o.s.p !== s.p && o.d <= 16) { const p = s.p; if (!(p.near[o.s.p.id] <= o.d)) p.near[o.s.p.id] = o.d; }
     for (const p of S.polities) p.contacts = Object.keys(p.near).length;
-    assignJobs();
+    if (ph === 0) assignJobs();
     for (const p of S.polities) { let fsw = 0, sp = 0, sol = 0, ad = 0; for (const s of p.sets) { fsw += s.fs * s.pop; sp += s.pop; sol += s.counts[4]; } p.fs = sp ? fsw / sp : 1; p.soldiers = sol; }
+    if (ph === 0) for (const s of S.settlements) { s.yFood0 = s.food; s.yNeed = 0; s.yProd = 0; }
     produce();
     for (const p of S.polities) { let m = 0; for (const s of p.sets) m += s.milEff; p.milEff = m; }
     trade();
     lifecycle();
-    migrate();
-    expandPhase();
-    diplomacy();
-    warStep();
-    politics();
-    record();
+    if (ph === 3) { migrate(); expandPhase(); diplomacy(); warStep(); politics(); record(); }
   }
+  S.stepYear = function () { for (let i = 0; i < 4; i++) step(); };
 
   // ===== Alat dewa, inspeksi, simpan/muat =====
   function findAgent(id) { for (const a of S.agents) if (a.id === id) return a; return null; }
@@ -767,11 +785,11 @@ function createSim(sc) {
     const a = findAgent(id); if (!a) return null;
     return { id: a.id, umur: a.age, sex: a.sex, iq: a.iq, ag: a.ag, o: a.o, c: a.c, e: a.e, a: a.a, n: a.n, job: a.job, lapar: a.hunger, haus: a.thirst, puas: a.sat, sk: a.sk.slice(), kota: a.s.name, kotaId: a.s.id, bangsa: a.s.p.name, bangsaId: a.s.p.id, pemimpin: a.s.p.leader === a, pasangan: a.partner && a.partner.alive ? a.partner.id : 0 };
   };
-  const SAVE_VERSION = 1;
+  const SAVE_VERSION = 2;
   const r4 = v => Math.round(v * 10000) / 10000;
   S.serialize = function () {
     return {
-      v: SAVE_VERSION, year: S.year, seed: sc.seed || 1, ids: { aid: S.aid, sid: S.sid, pid: S.pid, fid: S.fid }, rng: rng.get(), climate: S.climate, cap: S.cap, maxEra: S.maxEra, eraYear: S.eraYear, truce: S.truce, cause: S.cause, hist: S.hist, histStep: S.histStep, log: S.log, pcount: S.pcount, wlog: S.wlog,
+      v: SAVE_VERSION, tick: S.tick, year: S.year, seed: sc.seed || 1, ids: { aid: S.aid, sid: S.sid, pid: S.pid, fid: S.fid }, rng: rng.get(), climate: S.climate, cap: S.cap, maxEra: S.maxEra, eraYear: S.eraYear, truce: S.truce, cause: S.cause, hist: S.hist, histStep: S.histStep, log: S.log, pcount: S.pcount, wlog: S.wlog,
       world: { h: toB64(world.h), rain: toB64(world.rain), river: toB64(world.river), soil: toB64(world.soil), tn: toB64(world.tn), cover: toB64(world.cover) },
       polities: S.polities.map(p => ({ id: p.id, name: p.name, col: p.col, cap: p.cap ? p.cap.id : 0, leader: p.leader ? p.leader.id : 0, techs: [...p.techs], know: p.know, target: p.target ? p.target.id : null, grv: p.grv, allies: [...p.allies], born: p.born, stab: p.stab })),
       settlements: S.settlements.map(s => ({ id: s.id, name: s.name, x: s.x, y: s.y, pid: s.p.id, food: s.food, tools: s.tools, stock: s.stock, fs: s.fs, sat: s.sat, resent: s.resent, lastColony: s.lastColony, founded: s.founded })),
@@ -781,7 +799,7 @@ function createSim(sc) {
   };
   function loadState(st) {
     if (st.v !== SAVE_VERSION) throw new Error('Versi simpanan ' + st.v + ' tidak didukung (perlu ' + SAVE_VERSION + ')');
-    S.year = st.year; S.aid = st.ids.aid; S.sid = st.ids.sid; S.pid = st.ids.pid; S.fid = st.ids.fid; rng.set(st.rng); S.climate = st.climate; S.cap = st.cap; S.maxEra = st.maxEra; S.eraYear = st.eraYear; S.truce = st.truce || {};
+    S.tick = st.tick | 0; S.season = S.tick > 0 ? (S.tick - 1) % 4 : 0; S.year = st.year; S.aid = st.ids.aid; S.sid = st.ids.sid; S.pid = st.ids.pid; S.fid = st.ids.fid; rng.set(st.rng); S.climate = st.climate; S.cap = st.cap; S.maxEra = st.maxEra; S.eraYear = st.eraYear; S.truce = st.truce || {};
     S.cause = Object.assign({ lapar: 0, haus: 0, perang: 0, wabah: 0, usia: 0, bencana: 0 }, st.cause); S.hist = st.hist; S.histStep = st.histStep; S.log = st.log; S.logN = st.log.reduce((m, l) => Math.max(m, l.n || 0), 0); S.pcount = st.pcount; S.wlog = st.wlog || 0;
     const pm = new Map(), sm = new Map(), am = new Map();
     for (const o of st.polities) { const p = addPolity(null, { id: o.id, name: o.name, col: o.col }); p.techs = new Set(o.techs); applyTechs(p); p.know = o.know; p.born = o.born; p.stab = o.stab; p.grv = o.grv || {}; p.allies = new Set(o.allies); p._cap = o.cap; p._leader = o.leader; p._target = o.target; pm.set(o.id, p); }

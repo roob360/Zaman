@@ -32,6 +32,14 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Pe
 - **[MODEL]** `pickSpot('sungai')` tidak lagi memilih gurun, tundra, atau gunung sebagai titik awal. Sebelumnya seed 4 punah pada tahun 124. Uji 14 seed, 600 tahun: tidak ada kepunahan pada konfigurasi dua kelompok.
 - Preview Worker: koordinat titik awal dihitung berurutan (bug referensi sebelum terisi).
 
+### Diubah (waktu per musim)
+- **[MODEL] [SIMPANAN]** 1 tick kini 1 musim (4 tick = 1 tahun). Musim mengikuti lintang dan belahan bumi: tropis (hujan dan kemarau), sedang (empat musim), kutub. Panen, pangan liar, kelahiran, kematian, dan lapar dihitung per musim. Versi simpanan naik ke 2 (simpanan versi 1 ditolak).
+- Tanggal di layar: `Tahun N · nama musim · hari D`, mengikuti lintang pusat kamera.
+- Kecepatan baru: 1x (sekitar 10 detik per tahun), 2x, 5x, 20x, 100x, Maks. Tombol lompat dalam tahun, tombol langkah maju satu musim.
+- Peta bernuansa musim (salju di lintang tinggi saat dingin, hutan menguning saat gugur, savana tropis mengering saat kemarau). Kosmetik, tidak memengaruhi simulasi.
+- Musim dingin di lintang tinggi menaikkan kebutuhan pangan (asumsi).
+- `S.stepYear()` ditambahkan untuk skrip uji.
+
 ### Diperbaiki (populasi dan koloni)
 - **[MODEL]** Tekanan pindah kini memasukkan lapar kronis dan ukuran kelompok (kelompok besar terpecah sebelum daya dukung habis), dan peluang kolonisasi dinaikkan. Sebelumnya kelompok kecil stagnan di 40 sampai 60 jiwa pada satu permukiman tanpa pernah mendirikan koloni.
 - **[MODEL]** Perkawinan antar permukiman tetangga (jarak sampai 12 sel, tidak sedang perang). Sebelumnya koloni kecil kehabisan pasangan non-kerabat dan punah (rata-rata hidup sekitar 50 tahun, puncak 6 sampai 12 jiwa).

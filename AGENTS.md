@@ -34,7 +34,7 @@ Panduan untuk AI agent (Claude Code, Codex, dan sejenisnya) dan pengembang yang 
 3. **Inti simulasi tidak boleh menyentuh DOM.** `sim.js` berjalan di Worker dan di Node (untuk tes). Hanya `globalThis.WorldSim` yang diekspor.
 4. **Komunikasi UI dan Worker lewat pesan** (lihat `worker.js`). Array besar dikirim sebagai transferable. UI wajib mengirim `ack` setelah menggambar snapshot.
 5. **Simpan/muat harus tetap kompatibel.** Setiap perubahan struktur state wajib: (a) menaikkan `SAVE_VERSION`, (b) menambah migrasi atau menolak versi lama dengan pesan jelas, (c) dicatat di CHANGELOG.
-6. **1 tick = 1 tahun.** Jangan mengubah skala waktu tanpa menyesuaikan seluruh laju (kelahiran, kematian, teknologi).
+6. **1 tick = 1 musim, 4 tick = 1 tahun.** Proses lambat (pekerjaan, migrasi, ekspansi, diplomasi, perang, politik, pernikahan, penuaan) berjalan sekali setahun pada musim ke-4. Proses musiman (produksi, konsumsi, lapar, kelahiran, kematian) berjalan tiap tick dengan laju dibagi empat. Jangan mengubah skala waktu tanpa menyesuaikan seluruh laju.
 7. **Responsif.** Setiap fitur UI baru harus berfungsi di layar lebar (sidebar, toolbar, inspektur) dan ponsel (bottom sheet, tab bar). Target sentuh minimal 44 px di ponsel.
 8. **Hormati `prefers-reduced-motion` dan tema gelap/terang.** Pakai variabel CSS dari token, bukan warna tertanam.
 9. **Aksesibilitas dasar:** elemen interaktif punya label, fokus terlihat, kontras sesuai token.
