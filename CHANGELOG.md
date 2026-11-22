@@ -32,6 +32,12 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Pe
 - **[MODEL]** `pickSpot('sungai')` tidak lagi memilih gurun, tundra, atau gunung sebagai titik awal. Sebelumnya seed 4 punah pada tahun 124. Uji 14 seed, 600 tahun: tidak ada kepunahan pada konfigurasi dua kelompok.
 - Preview Worker: koordinat titik awal dihitung berurutan (bug referensi sebelum terisi).
 
+### Diperbaiki (populasi dan koloni)
+- **[MODEL]** Tekanan pindah kini memasukkan lapar kronis dan ukuran kelompok (kelompok besar terpecah sebelum daya dukung habis), dan peluang kolonisasi dinaikkan. Sebelumnya kelompok kecil stagnan di 40 sampai 60 jiwa pada satu permukiman tanpa pernah mendirikan koloni.
+- **[MODEL]** Perkawinan antar permukiman tetangga (jarak sampai 12 sel, tidak sedang perang). Sebelumnya koloni kecil kehabisan pasangan non-kerabat dan punah (rata-rata hidup sekitar 50 tahun, puncak 6 sampai 12 jiwa).
+- Punahnya permukiman kini tercatat di log.
+- Hasil uji 14 seed, 600 tahun, satu atau dua kelompok awal: tidak ada kepunahan, populasi mencapai sekitar 1.700 sampai 1.800. Era Neolitik tercapai sekitar tahun 110 sampai 150, Abad Pertengahan sekitar 900 sampai 1350, Era Industri sekitar 2300 sampai 3300. Era Modern belum tercapai dalam 4000 tahun pada 6 seed uji.
+
 ### Diubah
 - Penomoran urut pada setiap entri log peristiwa (`n`), agar Worker hanya mengirim log baru.
 

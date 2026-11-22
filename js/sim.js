@@ -436,13 +436,32 @@ function createSim(sc) {
       s.sat = ms.length ? satSum / ms.length : 1; s.sat = clamp(s.sat - s.resent, 0, 1); s.resent *= 0.9;
     }
     for (const b of births) { S.agents.push(b); S.births++; }
+    // Perkawinan: utamakan pasangan sekelompok, bila tidak ada yang cocok (kerabat, selisih umur) cari di permukiman tetangga.
+    // Perempuan pindah ke permukiman suami. Tanpa ini koloni kecil kehabisan pasangan non-kerabat lalu punah.
+    const singF = new Map(), singM = new Map();
     for (const s of S.settlements) {
       const sm = [], sf = [];
       for (const a of s.members) if (a.alive && !a.partner && a.age >= 16 && a.age <= 50) (a.sex === 0 ? sm : sf).push(a);
+      singF.set(s, sf); singM.set(s, sm);
+    }
+    const okPair = (a, b) => !kin(a, b) && Math.abs(a.age - b.age) <= 12;
+    const take = (list, k) => { const b = list[k]; list[k] = list[list.length - 1]; list.pop(); return b; };
+    for (const s of S.settlements) {
+      const sm = singM.get(s), sf = singF.get(s);
       for (const a of sm) {
-        if (!sf.length) break; if (rng() > 0.55 + 0.4 * a.e) continue;
-        const k = (rng() * sf.length) | 0, b = sf[k]; if (kin(a, b) || Math.abs(a.age - b.age) > 12) continue;
-        sf.splice(k, 1); a.partner = b; b.partner = a; const nf = S.fid++; a.fam = nf; b.fam = nf;
+        if (a.partner || rng() > 0.55 + 0.4 * a.e) continue;
+        let b = null, from = null;
+        for (let t = 0; t < 4 && sf.length && !b; t++) { const k = (rng() * sf.length) | 0; if (okPair(a, sf[k])) { b = take(sf, k); from = sf; } }
+        if (!b) {
+          for (const o of s.nb) {
+            if (o.d > 12) break; const t = o.s; if (t.p !== s.p && warBetween(s.p, t.p)) continue;
+            const lf = singF.get(t); if (!lf || !lf.length) continue;
+            for (let q = 0; q < 4 && !b; q++) { const k = (rng() * lf.length) | 0; if (okPair(a, lf[k])) { b = take(lf, k); from = lf; } }
+            if (b) break;
+          }
+        }
+        if (!b) continue;
+        a.partner = b; b.partner = a; b.s = s; const nf = S.fid++; a.fam = nf; b.fam = nf;
       }
     }
     S.agents = S.agents.filter(a => a.alive);
@@ -499,13 +518,15 @@ function createSim(sc) {
   function expandPhase() {
     for (const s of S.settlements.slice()) {
       const P = s.p; if (!P.leader) continue; const soft = softCap(s);
-      const pressure = Math.max(1 - Math.min(1, s.fs), s.thirst * 1.5, s.pop / soft - 0.7, s.pop / Math.max(10, s.drinkCap) - 0.6);
-      if (pressure > 0.15 && s.pop >= 20 && S.year - s.lastColony > 15 && rng() < P.expand * (0.4 + pressure)) colonize(s);
+      let hs = 0; for (const m of s.members) hs += m.hunger; const mh = s.members.length ? hs / s.members.length : 0;
+      // Tekanan pindah: pangan, air, kepadatan, lapar kronis, dan ukuran kelompok (kelompok besar terpecah sebelum daya dukung habis).
+      const pressure = Math.max(1 - Math.min(1, s.fs), s.thirst * 1.5, s.pop / soft - 0.7, s.pop / Math.max(10, s.drinkCap) - 0.6, 2.2 * mh, s.pop / (0.5 * soft) - 0.8);
+      if (pressure > 0.15 && s.pop >= 20 && S.year - s.lastColony > 10 && rng() < Math.min(0.5, 3 * P.expand * (0.4 + pressure))) colonize(s);
     }
   }
 
   function removeEmpty() {
-    S.settlements = S.settlements.filter(s => { if (s.members.length === 0) { S.catchDirty = true; return false; } return true; });
+    S.settlements = S.settlements.filter(s => { if (s.members.length === 0) { S.catchDirty = true; if (S.year > 0 && s.founded != null) ev('koloni', `${s.name} (${s.p.name}) ditinggalkan dan punah`); return false; } return true; });
   }
 
   function declareWar(A, B) {
