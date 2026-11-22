@@ -1,0 +1,14 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": { "v": 1, "at": "2026-10-28T13:53:35Z" },
+  "title": "macOS 27",
+  "namespace": "MacOS27",
+  "libraries": [],
+  "sections": {},
+  "groups": [],
+  "assetGroups": {},
+  "blobs": {},
+  "docs": { "readme": "project/README.md", "sections": [] },
+  "lastChange": { "by": "Claude", "at": "2026-11-04T10:30:00Z", "via": "Claude (file Sketch lokal)", "note": "Ditambah Toolbar, Dialog, Dock, Form, Pointer, Image Well, varian Button, Menu, Slider, Sidebar dari macOS 27 UI Kit.sketch." }
+}

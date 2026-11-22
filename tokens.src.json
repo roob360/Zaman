@@ -1,0 +1,1557 @@
+{
+  "name": "macOS 27",
+  "version": 1,
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "Light"
+      },
+      {
+        "id": "dark",
+        "name": "Dark"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "label-primary",
+        "value": {
+          "light": "#000000d9",
+          "dark": "#ffffff"
+        },
+        "usage": "Teks utama dan judul di atas window-background dan fill-*. Terang: hitam 85%. Gelap: putih penuh."
+      },
+      {
+        "name": "label-secondary",
+        "value": {
+          "light": "#00000080",
+          "dark": "#ffffff8c"
+        },
+        "usage": "Teks sekunder di atas window-background. Kontras terang sekitar 4:1, di bawah 4,5:1; pakai untuk teks 13px ke atas yang bukan informasi kritis."
+      },
+      {
+        "name": "label-tertiary",
+        "value": {
+          "light": "#00000040",
+          "dark": "#ffffff40"
+        },
+        "usage": "Teks nonaktif dan placeholder. Kontras jauh di bawah 4,5:1; jangan dipakai untuk teks yang harus terbaca."
+      },
+      {
+        "name": "label-quaternary",
+        "value": {
+          "light": "#0000001a",
+          "dark": "#ffffff1a"
+        },
+        "usage": "Tingkat keempat label: garis pemisah dan elemen dekoratif halus, bukan teks."
+      },
+      {
+        "name": "label-quinary",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#ffffff0d"
+        },
+        "usage": "Tingkat kelima label: pemisah paling halus, bukan teks."
+      },
+      {
+        "name": "label-seximal",
+        "value": {
+          "light": "#00000008",
+          "dark": "#ffffff08"
+        },
+        "usage": "Tingkat keenam label: lapisan nyaris tak terlihat, bukan teks."
+      },
+      {
+        "name": "label-vibrant-primary",
+        "value": {
+          "light": "#363636",
+          "dark": "#fffffff5"
+        },
+        "usage": "Teks utama di atas material dengan vibrancy (blend Plus Darker di mode terang, Plus Lighter di mode gelap). Juga warna label tombol Bordered di mode terang."
+      },
+      {
+        "name": "label-vibrant-secondary",
+        "value": {
+          "light": "#737373",
+          "dark": "#8a8a8a"
+        },
+        "usage": "Teks sekunder di atas material dengan vibrancy."
+      },
+      {
+        "name": "label-vibrant-tertiary",
+        "value": {
+          "light": "#b2b2b2",
+          "dark": "#4c4c4c"
+        },
+        "usage": "Teks nonaktif di atas material dengan vibrancy. Kontras rendah, bukan untuk teks yang harus terbaca."
+      },
+      {
+        "name": "label-vibrant-quaternary",
+        "value": {
+          "light": "#d9d9d9",
+          "dark": "#262626"
+        },
+        "usage": "Tingkat keempat label vibrancy: pemisah, bukan teks."
+      },
+      {
+        "name": "label-vibrant-quinary",
+        "value": {
+          "light": "#e6e6e6",
+          "dark": "#121212"
+        },
+        "usage": "Tingkat kelima label vibrancy: pemisah paling halus, bukan teks."
+      },
+      {
+        "name": "fill-primary",
+        "value": {
+          "light": "#0000001a",
+          "dark": "#ffffff1a"
+        },
+        "usage": "Isi latar kontrol tingkat primary (track, bidang, tombol) di atas window-background. Makin besar nomor tingkat, makin halus."
+      },
+      {
+        "name": "fill-secondary",
+        "value": {
+          "light": "#00000014",
+          "dark": "#ffffff14"
+        },
+        "usage": "Isi latar kontrol tingkat secondary (track, bidang, tombol) di atas window-background. Makin besar nomor tingkat, makin halus."
+      },
+      {
+        "name": "fill-tertiary",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#ffffff0d"
+        },
+        "usage": "Isi latar kontrol tingkat tertiary (track, bidang, tombol) di atas window-background. Makin besar nomor tingkat, makin halus."
+      },
+      {
+        "name": "fill-quaternary",
+        "value": {
+          "light": "#00000008",
+          "dark": "#ffffff08"
+        },
+        "usage": "Isi latar kontrol tingkat quaternary (track, bidang, tombol) di atas window-background. Makin besar nomor tingkat, makin halus."
+      },
+      {
+        "name": "fill-quinary",
+        "value": {
+          "light": "#00000005",
+          "dark": "#ffffff05"
+        },
+        "usage": "Isi latar kontrol tingkat quinary (track, bidang, tombol) di atas window-background. Makin besar nomor tingkat, makin halus."
+      },
+      {
+        "name": "fill-vibrant-primary",
+        "value": {
+          "light": "#00000026",
+          "dark": "#ffffff24"
+        },
+        "usage": "Isi latar kontrol tingkat primary di atas material dengan vibrancy."
+      },
+      {
+        "name": "fill-vibrant-secondary",
+        "value": {
+          "light": "#00000012",
+          "dark": "#ffffff14"
+        },
+        "usage": "Isi latar kontrol tingkat secondary di atas material dengan vibrancy."
+      },
+      {
+        "name": "fill-vibrant-tertiary",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#ffffff0d"
+        },
+        "usage": "Isi latar kontrol tingkat tertiary di atas material dengan vibrancy."
+      },
+      {
+        "name": "fill-vibrant-quaternary",
+        "value": {
+          "light": "#00000008",
+          "dark": "#ffffff0a"
+        },
+        "usage": "Isi latar kontrol tingkat quaternary di atas material dengan vibrancy."
+      },
+      {
+        "name": "fill-vibrant-quinary",
+        "value": {
+          "light": "#00000005",
+          "dark": "#ffffff08"
+        },
+        "usage": "Isi latar kontrol tingkat quinary di atas material dengan vibrancy."
+      },
+      {
+        "name": "accent-red",
+        "value": {
+          "light": "#ff383c",
+          "dark": "#ff4245"
+        },
+        "usage": "Aksen red sistem. Bahaya dan aksi destruktif. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-orange",
+        "value": {
+          "light": "#ff8d28",
+          "dark": "#ff9230"
+        },
+        "usage": "Aksen orange sistem. Peringatan. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-yellow",
+        "value": {
+          "light": "#ffcc00",
+          "dark": "#ffd600"
+        },
+        "usage": "Aksen yellow sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-green",
+        "value": {
+          "light": "#34c759",
+          "dark": "#30d158"
+        },
+        "usage": "Aksen green sistem. Status berhasil. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-mint",
+        "value": {
+          "light": "#00c8b3",
+          "dark": "#00dac3"
+        },
+        "usage": "Aksen mint sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-teal",
+        "value": {
+          "light": "#00c3d0",
+          "dark": "#00d2e0"
+        },
+        "usage": "Aksen teal sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-cyan",
+        "value": {
+          "light": "#00c0e8",
+          "dark": "#3cd3fe"
+        },
+        "usage": "Aksen cyan sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-blue",
+        "value": {
+          "light": "#0088ff",
+          "dark": "#0091ff"
+        },
+        "usage": "Aksen blue sistem. Pilihan, penanda aktif, dan isi tombol utama. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-indigo",
+        "value": {
+          "light": "#6155f5",
+          "dark": "#6d7cff"
+        },
+        "usage": "Aksen indigo sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-purple",
+        "value": {
+          "light": "#cb30e0",
+          "dark": "#db34f2"
+        },
+        "usage": "Aksen purple sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-pink",
+        "value": {
+          "light": "#ff2d55",
+          "dark": "#ff375f"
+        },
+        "usage": "Aksen pink sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-brown",
+        "value": {
+          "light": "#ac7f5e",
+          "dark": "#b78a66"
+        },
+        "usage": "Aksen brown sistem. Sertakan teks atau ikon, jangan menjadikan warna satu-satunya penanda."
+      },
+      {
+        "name": "accent-gray",
+        "value": {
+          "light": "#8e8e93",
+          "dark": "#98989d"
+        },
+        "usage": "Abu-abu sistem untuk ikon dan elemen netral."
+      },
+      {
+        "name": "accent-vibrant-red",
+        "value": {
+          "light": "#f52f32",
+          "dark": "#ff4747"
+        },
+        "usage": "Aksen red untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-orange",
+        "value": {
+          "light": "#f58625",
+          "dark": "#ff9e33"
+        },
+        "usage": "Aksen orange untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-yellow",
+        "value": {
+          "light": "#f5c200",
+          "dark": "#ffe014"
+        },
+        "usage": "Aksen yellow untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-green",
+        "value": {
+          "light": "#26bf4d",
+          "dark": "#3bdb63"
+        },
+        "usage": "Aksen green untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-mint",
+        "value": {
+          "light": "#00bda9",
+          "dark": "#2de0cd"
+        },
+        "usage": "Aksen mint untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-teal",
+        "value": {
+          "light": "#00b3bf",
+          "dark": "#2dd7e0"
+        },
+        "usage": "Aksen teal untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-cyan",
+        "value": {
+          "light": "#00abcf",
+          "dark": "#47d8fc"
+        },
+        "usage": "Aksen cyan untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-blue",
+        "value": {
+          "light": "#0078f0",
+          "dark": "#0a99ff"
+        },
+        "usage": "Aksen blue untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-indigo",
+        "value": {
+          "light": "#5c50e6",
+          "dark": "#7163ff"
+        },
+        "usage": "Aksen indigo untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-purple",
+        "value": {
+          "light": "#b72bc9",
+          "dark": "#e647fc"
+        },
+        "usage": "Aksen purple untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-pink",
+        "value": {
+          "light": "#f5234b",
+          "dark": "#ff4169"
+        },
+        "usage": "Aksen pink untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-brown",
+        "value": {
+          "light": "#9e7354",
+          "dark": "#c29672"
+        },
+        "usage": "Aksen brown untuk permukaan dengan vibrancy (Plus Darker di mode terang, Plus Lighter di mode gelap)."
+      },
+      {
+        "name": "accent-vibrant-gray",
+        "value": {
+          "light": "#848489",
+          "dark": "#a2a2a7"
+        },
+        "usage": "Abu-abu sistem untuk permukaan dengan vibrancy."
+      },
+      {
+        "name": "window-background",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#1e1e1e"
+        },
+        "usage": "Latar jendela dan bidang isi. Pasangan standar untuk label-primary dan label-secondary."
+      },
+      {
+        "name": "material-ultra-thin",
+        "value": {
+          "light": "#ececec61",
+          "dark": "#29292966"
+        },
+        "usage": "Material paling tipis: transparansi tertinggi, blur paling terlihat."
+      },
+      {
+        "name": "material-thin",
+        "value": {
+          "light": "#ececec80",
+          "dark": "#2929297d"
+        },
+        "usage": "Material tipis."
+      },
+      {
+        "name": "material-regular",
+        "value": {
+          "light": "#ecececa1",
+          "dark": "#2c2c2c9c"
+        },
+        "usage": "Material standar."
+      },
+      {
+        "name": "material-thick",
+        "value": {
+          "light": "#ecececc2",
+          "dark": "#2c2c2cb5"
+        },
+        "usage": "Material tebal."
+      },
+      {
+        "name": "material-ultra-thick",
+        "value": {
+          "light": "#ececece0",
+          "dark": "#2c2c2cd1"
+        },
+        "usage": "Material paling tebal: hampir opak."
+      },
+      {
+        "name": "sidebar-active",
+        "value": {
+          "light": "#fafafacc",
+          "dark": "#0c0c0cd9"
+        },
+        "usage": "Latar sidebar saat jendela aktif."
+      },
+      {
+        "name": "sidebar-inactive",
+        "value": {
+          "light": "#f4f4f4",
+          "dark": "#2e2e2ed9"
+        },
+        "usage": "Latar sidebar saat jendela tidak aktif."
+      },
+      {
+        "name": "input-fill",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#1e1e1e"
+        },
+        "usage": "Isi bidang input (Text Field) di Content Area."
+      },
+      {
+        "name": "input-border",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#ffffff0a"
+        },
+        "usage": "Garis tepi 1px bidang input saat idle."
+      },
+      {
+        "name": "control-bordered-fill",
+        "value": {
+          "light": "#00000014",
+          "dark": "#ffffff12"
+        },
+        "usage": "Isi tombol Bordered saat idle di Content Area."
+      },
+      {
+        "name": "control-prominent-fill",
+        "value": {
+          "light": "{accent-blue}",
+          "dark": "{accent-blue}"
+        },
+        "usage": "Isi tombol Bordered Default (utama) saat idle di Content Area. Teks di atasnya memakai on-prominent."
+      },
+      {
+        "name": "on-prominent",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#ffffff"
+        },
+        "usage": "Teks di atas control-prominent-fill. Kontras terhadap isi sekitar 3,5:1 (terang) dan 3,2:1 (gelap), di bawah 4,5:1; nilai sumber dipertahankan, jadi pakai hanya untuk label 13px ke atas."
+      },
+      {
+        "name": "control-bordered-fill-clicked",
+        "value": {
+          "light": "#00000029",
+          "dark": "#ffffff29"
+        },
+        "usage": "Isi tombol Bordered saat ditekan (Clicked)."
+      },
+      {
+        "name": "control-bordered-fill-disabled",
+        "value": {
+          "light": "#0000000a",
+          "dark": "#ffffff0a"
+        },
+        "usage": "Isi tombol Bordered saat nonaktif. Label memakai label-tertiary."
+      },
+      {
+        "name": "control-prominent-fill-clicked",
+        "value": {
+          "light": "#0078f0",
+          "dark": "#0a99ff"
+        },
+        "usage": "Isi tombol Bordered Default saat ditekan."
+      },
+      {
+        "name": "control-destructive-fill",
+        "value": {
+          "light": "{accent-red}",
+          "dark": "{accent-red}"
+        },
+        "usage": "Isi tombol Bordered Default Destructive saat idle. Teks di atasnya memakai on-prominent."
+      },
+      {
+        "name": "control-destructive-fill-clicked",
+        "value": {
+          "light": "#f52f32",
+          "dark": "#ff4747"
+        },
+        "usage": "Isi tombol Bordered Default Destructive saat ditekan."
+      },
+      {
+        "name": "control-tinted-fill",
+        "value": {
+          "light": "#0088ff29",
+          "dark": "#0091ff3d"
+        },
+        "usage": "Isi tombol Bordered Tinted (aksen biru). Label memakai accent-blue."
+      },
+      {
+        "name": "control-destructive-tinted-fill",
+        "value": {
+          "light": "#ff383c29",
+          "dark": "#ff42453d"
+        },
+        "usage": "Isi tombol Bordered Destructive. Label memakai accent-red."
+      },
+      {
+        "name": "titlebar-border",
+        "value": {
+          "light": "#3c3c431f",
+          "dark": "#3c3c431f"
+        },
+        "usage": "Garis bawah 1px titlebar dan toolbar panel utilitas."
+      },
+      {
+        "name": "window-control-close",
+        "value": {
+          "light": "#fa9891",
+          "dark": "#fa9891"
+        },
+        "usage": "Tombol tutup jendela (merah)."
+      },
+      {
+        "name": "window-control-minimize",
+        "value": {
+          "light": "#ffda66",
+          "dark": "#ffda66"
+        },
+        "usage": "Tombol minimalkan jendela (kuning)."
+      },
+      {
+        "name": "window-control-expand",
+        "value": {
+          "light": "#ade392",
+          "dark": "#ade392"
+        },
+        "usage": "Tombol perbesar jendela (hijau)."
+      },
+      {
+        "name": "dock-dot",
+        "value": {
+          "light": "#707070",
+          "dark": "#707070"
+        },
+        "usage": "Titik penanda aplikasi berjalan di bawah ikon Dock."
+      },
+      {
+        "name": "image-well-fill",
+        "value": {
+          "light": "#00000005",
+          "dark": "#ffffff05"
+        },
+        "usage": "Isi Image Well."
+      },
+      {
+        "name": "image-well-border",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#0000000d"
+        },
+        "usage": "Garis tepi Image Well (0,5px dan 1,5px)."
+      },
+      {
+        "name": "form-fill",
+        "value": {
+          "light": "#00000008",
+          "dark": "#00000008"
+        },
+        "usage": "Isi kontainer Form di dalam jendela."
+      },
+      {
+        "name": "form-row-separator",
+        "value": {
+          "light": "#0000000d",
+          "dark": "#0000000d"
+        },
+        "usage": "Garis 1px di bawah setiap baris Form."
+      },
+      {
+        "name": "track-active",
+        "value": {
+          "light": "{accent-blue}",
+          "dark": "{accent-blue}"
+        },
+        "usage": "Isi track aktif (switch menyala, slider terisi)."
+      },
+      {
+        "name": "track-inactive",
+        "value": {
+          "light": "{fill-primary}",
+          "dark": "{fill-primary}"
+        },
+        "usage": "Isi track tidak aktif."
+      },
+      {
+        "name": "sidebar-selected",
+        "value": {
+          "light": "#0000001c",
+          "dark": "#ffffff1c"
+        },
+        "usage": "Latar baris sidebar terpilih (radius-8, melebar 4px ke kiri dan kanan baris)."
+      },
+      {
+        "name": "menu-hover-fill",
+        "value": {
+          "light": "#0069f9",
+          "dark": "#0069f9"
+        },
+        "usage": "Latar baris menu saat hover (radius-8, melebar 11px ke kiri dan 11px ke kanan). Teks, simbol, dan pintasan di atasnya putih."
+      },
+      {
+        "name": "menu-separator",
+        "value": {
+          "light": "#00000012",
+          "dark": "#ffffff14"
+        },
+        "usage": "Garis pemisah menu setebal 1px."
+      },
+      {
+        "name": "group-box-fill",
+        "value": {
+          "light": "#00000008",
+          "dark": "#ffffff08"
+        },
+        "usage": "Isi Group Box (radius-12)."
+      },
+      {
+        "name": "tooltip-fill",
+        "value": {
+          "light": "#e7e7e7d9",
+          "dark": "#262626cc"
+        },
+        "usage": "Isi tooltip."
+      },
+      {
+        "name": "tooltip-text",
+        "value": {
+          "light": "#4c4c4c",
+          "dark": "#fffffff5"
+        },
+        "usage": "Teks tooltip 11px di atas tooltip-fill."
+      },
+      {
+        "name": "input-disabled-fill",
+        "value": {
+          "light": "#ffffff80",
+          "dark": "#1e1e1e80"
+        },
+        "usage": "Isi bidang input saat disabled."
+      },
+      {
+        "name": "knob-fill",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#ffffffa6"
+        },
+        "usage": "Isi knob switch."
+      },
+      {
+        "name": "control-off-fill",
+        "value": {
+          "light": "{fill-primary}",
+          "dark": "{fill-primary}"
+        },
+        "usage": "Isi kontrol berstatus mati (track switch off, kotak checkbox kosong, radio kosong)."
+      },
+      {
+        "name": "control-disabled-fill",
+        "value": {
+          "light": "{fill-tertiary}",
+          "dark": "{fill-tertiary}"
+        },
+        "usage": "Isi kontrol mati yang nonaktif."
+      }
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "sans": "\"SF Pro\", -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Standard",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "large-title",
+            "fontSize": "26px",
+            "lineHeight": "32px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong."
+          },
+          {
+            "name": "large-title-emphasized",
+            "fontSize": "26px",
+            "lineHeight": "32px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong. Varian penekanan."
+          },
+          {
+            "name": "title-1",
+            "fontSize": "22px",
+            "lineHeight": "26px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama."
+          },
+          {
+            "name": "title-1-emphasized",
+            "fontSize": "22px",
+            "lineHeight": "26px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama. Varian penekanan."
+          },
+          {
+            "name": "title-2",
+            "fontSize": "17px",
+            "lineHeight": "22px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua."
+          },
+          {
+            "name": "title-2-emphasized",
+            "fontSize": "17px",
+            "lineHeight": "22px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua. Varian penekanan."
+          },
+          {
+            "name": "title-3",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga."
+          },
+          {
+            "name": "title-3-emphasized",
+            "fontSize": "15px",
+            "lineHeight": "20px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga. Varian penekanan."
+          },
+          {
+            "name": "headline",
+            "fontSize": "13px",
+            "lineHeight": "16px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body."
+          },
+          {
+            "name": "headline-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "16px",
+            "fontWeight": 800,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body. Varian penekanan."
+          },
+          {
+            "name": "body",
+            "fontSize": "13px",
+            "lineHeight": "16px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS."
+          },
+          {
+            "name": "body-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "16px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS. Varian penekanan."
+          },
+          {
+            "name": "callout",
+            "fontSize": "12px",
+            "lineHeight": "15px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body."
+          },
+          {
+            "name": "callout-emphasized",
+            "fontSize": "12px",
+            "lineHeight": "15px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body. Varian penekanan."
+          },
+          {
+            "name": "subheadline",
+            "fontSize": "11px",
+            "lineHeight": "14px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder."
+          },
+          {
+            "name": "subheadline-emphasized",
+            "fontSize": "11px",
+            "lineHeight": "14px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder. Varian penekanan."
+          },
+          {
+            "name": "footnote",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil."
+          },
+          {
+            "name": "footnote-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-1",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil."
+          },
+          {
+            "name": "caption-1-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-2",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil."
+          },
+          {
+            "name": "caption-2-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "13px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil. Varian penekanan."
+          }
+        ]
+      },
+      {
+        "name": "Loose leading",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "large-title-loose",
+            "fontSize": "26px",
+            "lineHeight": "34px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong."
+          },
+          {
+            "name": "large-title-loose-emphasized",
+            "fontSize": "26px",
+            "lineHeight": "34px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong. Varian penekanan."
+          },
+          {
+            "name": "title-1-loose",
+            "fontSize": "22px",
+            "lineHeight": "28px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama."
+          },
+          {
+            "name": "title-1-loose-emphasized",
+            "fontSize": "22px",
+            "lineHeight": "28px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama. Varian penekanan."
+          },
+          {
+            "name": "title-2-loose",
+            "fontSize": "17px",
+            "lineHeight": "24px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua."
+          },
+          {
+            "name": "title-2-loose-emphasized",
+            "fontSize": "17px",
+            "lineHeight": "24px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua. Varian penekanan."
+          },
+          {
+            "name": "title-3-loose",
+            "fontSize": "15px",
+            "lineHeight": "22px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga."
+          },
+          {
+            "name": "title-3-loose-emphasized",
+            "fontSize": "15px",
+            "lineHeight": "22px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga. Varian penekanan."
+          },
+          {
+            "name": "headline-loose",
+            "fontSize": "13px",
+            "lineHeight": "18px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body."
+          },
+          {
+            "name": "headline-loose-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "18px",
+            "fontWeight": 800,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body. Varian penekanan."
+          },
+          {
+            "name": "body-loose",
+            "fontSize": "13px",
+            "lineHeight": "18px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS."
+          },
+          {
+            "name": "body-loose-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "18px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS. Varian penekanan."
+          },
+          {
+            "name": "callout-loose",
+            "fontSize": "12px",
+            "lineHeight": "17px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body."
+          },
+          {
+            "name": "callout-loose-emphasized",
+            "fontSize": "12px",
+            "lineHeight": "17px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body. Varian penekanan."
+          },
+          {
+            "name": "subheadline-loose",
+            "fontSize": "11px",
+            "lineHeight": "16px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder."
+          },
+          {
+            "name": "subheadline-loose-emphasized",
+            "fontSize": "11px",
+            "lineHeight": "16px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder. Varian penekanan."
+          },
+          {
+            "name": "footnote-loose",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil."
+          },
+          {
+            "name": "footnote-loose-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-1-loose",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil."
+          },
+          {
+            "name": "caption-1-loose-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-2-loose",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil."
+          },
+          {
+            "name": "caption-2-loose-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "15px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil. Varian penekanan."
+          }
+        ]
+      },
+      {
+        "name": "Tight leading",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "large-title-tight",
+            "fontSize": "26px",
+            "lineHeight": "30px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong."
+          },
+          {
+            "name": "large-title-tight-emphasized",
+            "fontSize": "26px",
+            "lineHeight": "30px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul terbesar pada jendela atau layar kosong. Varian penekanan."
+          },
+          {
+            "name": "title-1-tight",
+            "fontSize": "22px",
+            "lineHeight": "24px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama."
+          },
+          {
+            "name": "title-1-tight-emphasized",
+            "fontSize": "22px",
+            "lineHeight": "24px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian utama. Varian penekanan."
+          },
+          {
+            "name": "title-2-tight",
+            "fontSize": "17px",
+            "lineHeight": "20px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua."
+          },
+          {
+            "name": "title-2-tight-emphasized",
+            "fontSize": "17px",
+            "lineHeight": "20px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Judul bagian kedua. Varian penekanan."
+          },
+          {
+            "name": "title-3-tight",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga."
+          },
+          {
+            "name": "title-3-tight-emphasized",
+            "fontSize": "15px",
+            "lineHeight": "18px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Judul bagian ketiga. Varian penekanan."
+          },
+          {
+            "name": "headline-tight",
+            "fontSize": "13px",
+            "lineHeight": "14px",
+            "fontWeight": 700,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body."
+          },
+          {
+            "name": "headline-tight-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "14px",
+            "fontWeight": 800,
+            "letterSpacing": "0",
+            "usage": "Kepala daftar atau kelompok; ukuran sama dengan body. Varian penekanan."
+          },
+          {
+            "name": "body-tight",
+            "fontSize": "13px",
+            "lineHeight": "14px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS."
+          },
+          {
+            "name": "body-tight-emphasized",
+            "fontSize": "13px",
+            "lineHeight": "14px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks isi dan label kontrol standar. Ukuran dasar macOS. Varian penekanan."
+          },
+          {
+            "name": "callout-tight",
+            "fontSize": "12px",
+            "lineHeight": "13px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body."
+          },
+          {
+            "name": "callout-tight-emphasized",
+            "fontSize": "12px",
+            "lineHeight": "13px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Teks pendukung yang sedikit lebih kecil dari body. Varian penekanan."
+          },
+          {
+            "name": "subheadline-tight",
+            "fontSize": "11px",
+            "lineHeight": "12px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder."
+          },
+          {
+            "name": "subheadline-tight-emphasized",
+            "fontSize": "11px",
+            "lineHeight": "12px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Sub-judul dan teks sekunder. Varian penekanan."
+          },
+          {
+            "name": "footnote-tight",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil."
+          },
+          {
+            "name": "footnote-tight-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Catatan kaki dan keterangan kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-1-tight",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil."
+          },
+          {
+            "name": "caption-1-tight-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan gambar atau kontrol kecil. Varian penekanan."
+          },
+          {
+            "name": "caption-2-tight",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 400,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil."
+          },
+          {
+            "name": "caption-2-tight-emphasized",
+            "fontSize": "10px",
+            "lineHeight": "11px",
+            "fontWeight": 600,
+            "letterSpacing": "0",
+            "usage": "Keterangan paling kecil. Varian penekanan."
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "control-height-mn",
+        "value": "16px",
+        "usage": "Tinggi kontrol ukuran 1 Mn (mini)."
+      },
+      {
+        "name": "control-height-sm",
+        "value": "20px",
+        "usage": "Tinggi kontrol ukuran 2 Sm (small)."
+      },
+      {
+        "name": "control-height-rg",
+        "value": "24px",
+        "usage": "Tinggi kontrol ukuran 3 Rg (regular): ukuran standar push button."
+      },
+      {
+        "name": "control-height-lg",
+        "value": "28px",
+        "usage": "Tinggi kontrol ukuran 4 Lg (large)."
+      },
+      {
+        "name": "control-height-xl",
+        "value": "36px",
+        "usage": "Tinggi kontrol ukuran 5 XL (extra large)."
+      },
+      {
+        "name": "space-button-x",
+        "value": "16px",
+        "usage": "Padding horizontal kiri dan kanan push button ukuran Rg."
+      },
+      {
+        "name": "focus-ring-width",
+        "value": "3.5px",
+        "usage": "Tebal cincin fokus luar pada bidang input, warna accent-blue; ditambah garis 1px warna yang sama."
+      },
+      {
+        "name": "titlebar-height",
+        "value": "33px",
+        "usage": "Tinggi titlebar jendela."
+      },
+      {
+        "name": "toolbar-height",
+        "value": "44px",
+        "usage": "Tinggi toolbar jendela, di bawah titlebar."
+      },
+      {
+        "name": "sidebar-width",
+        "value": "256px",
+        "usage": "Lebar sidebar pada jendela dengan sidebar."
+      },
+      {
+        "name": "duration-fast",
+        "value": "150ms",
+        "usage": "Durasi transisi kecil: perubahan status tombol dan hover item menu."
+      },
+      {
+        "name": "duration-base",
+        "value": "250ms",
+        "usage": "Durasi standar: knob switch bergeser, chevron disclosure berputar, bar progres berubah."
+      },
+      {
+        "name": "duration-slow",
+        "value": "400ms",
+        "usage": "Durasi transisi besar: kemunculan menu, popover, dan alert."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "usage": "Easing default untuk perubahan status dan perpindahan elemen."
+      },
+      {
+        "name": "ease-in",
+        "value": "cubic-bezier(0.4, 0, 1, 1)",
+        "usage": "Easing untuk elemen yang keluar atau menghilang."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0, 0, 0.2, 1)",
+        "usage": "Easing untuk elemen yang muncul."
+      },
+      {
+        "name": "dock-icon-size",
+        "value": "36px",
+        "usage": "Ukuran ikon aplikasi di Dock."
+      },
+      {
+        "name": "pointer-size",
+        "value": "32px",
+        "usage": "Kotak kerja pointer (32 x 32px)."
+      },
+      {
+        "name": "image-well-size",
+        "value": "28px",
+        "usage": "Ukuran Image Well."
+      },
+      {
+        "name": "panel-titlebar-height",
+        "value": "24px",
+        "usage": "Tinggi titlebar panel utilitas."
+      },
+      {
+        "name": "panel-toolbar-height",
+        "value": "56px",
+        "usage": "Tinggi titlebar dengan toolbar tab pada panel utilitas."
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "radius-2",
+        "value": "2px",
+        "usage": "Sudut Image Well."
+      },
+      {
+        "name": "radius-4",
+        "value": "4px",
+        "usage": "Sudut tombol, pop-up, dan text field ukuran Mn."
+      },
+      {
+        "name": "radius-5",
+        "value": "5px",
+        "usage": "Sudut tombol, pop-up, dan text field ukuran Sm."
+      },
+      {
+        "name": "radius-6",
+        "value": "6px",
+        "usage": "Sudut tombol, pop-up, dan text field ukuran Rg."
+      },
+      {
+        "name": "radius-7",
+        "value": "7px",
+        "usage": "Sudut text field ukuran Lg."
+      },
+      {
+        "name": "radius-9",
+        "value": "9px",
+        "usage": "Sudut text field ukuran XL."
+      },
+      {
+        "name": "radius-20",
+        "value": "20px",
+        "usage": "Sudut kontainer Popover (230x230)."
+      },
+      {
+        "name": "radius-capsule",
+        "value": "999px",
+        "usage": "Bentuk kapsul penuh: tombol ukuran Lg dan XL, Search Field, Switch, Color Picker, Arrow Button semua ukuran."
+      },
+      {
+        "name": "radius-8",
+        "value": "8px",
+        "usage": "Sudut baris menu saat hover dan baris sidebar terpilih."
+      },
+      {
+        "name": "radius-12",
+        "value": "12px",
+        "usage": "Sudut kontainer menu dan Group Box."
+      },
+      {
+        "name": "radius-16",
+        "value": "16px",
+        "usage": "Sudut jendela."
+      },
+      {
+        "name": "radius-checkbox",
+        "value": "5.5px",
+        "usage": "Sudut kotak checkbox ukuran Rg (16x16)."
+      }
+    ]
+  },
+  "shadow": {
+    "tokens": [
+      {
+        "name": "shadow-window-active",
+        "value": {
+          "light": "0px 0px 1px 0px #000000cc, 0px 36px 100px 0px #00000066",
+          "dark": "0px 0px 1px 0px #000000cc, 0px 36px 100px 0px #00000066"
+        },
+        "usage": "Bayangan jendela aktif. Di tema gelap, jendela tanpa sidebar memakai shadow-panel."
+      },
+      {
+        "name": "shadow-window-inactive",
+        "value": {
+          "light": "0px 0px 1px 0px #000000cc, 0px 16px 32px 0px #00000033",
+          "dark": "0px 0px 1px 0px #000000cc, 0px 16px 32px 0px #00000033"
+        },
+        "usage": "Bayangan jendela tidak aktif."
+      },
+      {
+        "name": "shadow-panel",
+        "value": {
+          "light": "0px 5px 20px 0px #0000004c",
+          "dark": "0px 0px 1px 0px #000000cc, 0px 16px 33px 0px #00000066"
+        },
+        "usage": "Bayangan panel utilitas."
+      },
+      {
+        "name": "shadow-menu",
+        "value": {
+          "light": "0px 0px 0px 1px #66666626, 0px 0.5px 0px 0px #262626, 0px -0.5px 0px 0px #262626, 0px 4px 8px -4px #0d0d0d, 0px -4px 8px -4px #0d0d0d, 0px 0px 0px 0.5px #00000033, 0px 4px 24px 0px #0000004c",
+          "dark": "0px 0px 0px 1px #66666666, 0px 0.5px 0px 0px #262626, 0px -0.5px 0px 0px #262626, 0px 4px 8px -4px #0d0d0d, 0px -4px 8px -4px #0d0d0d, 0px 0px 0px 0.5px #000000cc, 0px 4px 24px 0px #0000004c"
+        },
+        "usage": "Tepi dan bayangan kontainer menu (Liquid Glass Menus)."
+      },
+      {
+        "name": "shadow-notification",
+        "value": {
+          "light": "0px 2px 0.2px -1.2px #ffffff33, 0px 1px 1.5px -1px #676767, 0px -1px 1.5px -1px #676767, 0px 6px 4px -6px #222222, 0px -6px 4px -6px #222222, 0px 0px 0.3px 0.3px #ababab, 0px 4px 16px 0px #0000001a",
+          "dark": "0px 2px 0.2px -1.2px #ffffff33, 0px 1px 1.5px -1px #676767, 0px -1px 1.5px -1px #676767, 0px 6px 4px -6px #222222, 0px -6px 4px -6px #222222, 0px 0px 0.3px 0.3px #ababab, 0px 4px 16px 0px #0000001a"
+        },
+        "usage": "Tepi dan bayangan latar notifikasi (Liquid Glass Notification), sama di kedua tema."
+      },
+      {
+        "name": "shadow-dock",
+        "value": {
+          "light": "0px 1px 0.5px -0.5px #ffffff1a, 0px -1px 0.5px -0.5px #ffffff1a, 0px 1px 0.5px -0.5px #ffffff, 0px -1px 0.5px -0.5px #ffffff, 1px 16px 16px -16px #161616, 0px -12px 12px -12px #161616b2, 0px 0px 0px 0.5px #00000040",
+          "dark": "0px 1px 0.5px -0.5px #ffffff1a, 0px -1px 0.5px -0.5px #ffffff1a, 0px 1px 0.5px -0.5px #ffffff, 0px -1px 0.5px -0.5px #ffffff, 1px 16px 16px -16px #161616, 0px -12px 12px -12px #161616b2, 0px 0px 0px 0.5px #00000040"
+        },
+        "usage": "Tepi dan bayangan Dock (Liquid Glass Dock), sama di kedua tema."
+      },
+      {
+        "name": "shadow-glass-lg",
+        "value": {
+          "light": "-1.25px 0px 0px -0.75px #dbdbdb, 1.25px 0px 0px -0.75px #dbdbdb, 0px 0px 0.3px 0.3px #dbdbdb80, 0px 2px 0.25px -1.5px #ffffff, 0px 1px 1.5px -0.5px #272727, 0px -1px 1.5px -0.5px #272727, 0px 4px 8px -4px #272727, 0px -4px 8px -4px #272727, 0px 18px 46px 0px #00000040",
+          "dark": "-1.25px 0px 0px -0.75px #a6a6a6, 1.25px 0px 0px -0.75px #a6a6a6, 0px 2px 0.2px -1.2px #ffffff33, 0px 1px 1.5px -0.5px #676767, 0px -1px 1.5px -0.5px #676767, 0px 4px 8px -4px #343434, 0px -4px 8px -4px #343434, 0px 0px 0.3px 0.3px #a6a6a6cc, 0px 18px 48px 0px #00000073"
+        },
+        "usage": "Tepi dan bayangan Liquid Glass Regular ukuran Large (alert, kartu besar)."
+      },
+      {
+        "name": "shadow-glass-md",
+        "value": {
+          "light": "1.25px 0px 0px -0.75px #dbdbdb, -1.25px 0px 0px -0.75px #dbdbdb, 0px 0px 0.3px 0.3px #dbdbdb, 0px 2px 0.25px -1.2px #ffffff, 0px 1px 1.5px -0.5px #272727, 0px -1px 1.5px -0.5px #272727, 0px 4px 8px -4px #272727, 0px -4px 2px -4px #272727, 0px 18px 46px 0px #00000040",
+          "dark": "-1.25px 0px 0px -0.75px #a6a6a6, 1.25px 0px 0px -0.75px #a6a6a6, 0px 2px 0.2px -1.2px #ffffff33, 0px 1px 1.5px -0.5px #676767, 0px -1px 1.5px -0.5px #676767, 0px 4px 8px -4px #343434, 0px -4px 8px -4px #343434, 0px 0px 0.3px 0.3px #a6a6a6cc, 0px 18px 48px 0px #00000073"
+        },
+        "usage": "Tepi dan bayangan Liquid Glass Regular ukuran Medium (popover)."
+      },
+      {
+        "name": "shadow-glass-sm",
+        "value": {
+          "light": "1.25px 0px 0px -0.75px #dbdbdb, -1.25px 0px 0px -0.75px #dbdbdb, 0px 0px 0px 0.5px #dbdbdb, 0px 8px 15px 0px #00000005, 0px 40px 10px -40px #282828, 0px -40px 10px -40px #282828, 0px 40px 30px -40px #e6e6e6, 0px 1px 0px 0px #171717, 0px -1px 0px 0px #171717, 0px 4px 0.5px -4px #666666, 0px -4px 0.5px -4px #666666, -20px 0px 20px -30px #d9d9d9, 20px 0px 20px -30px #d9d9d9",
+          "dark": "0px 40px 10px -40px #1a1a1a, 0px -40px 10px -40px #1a1a1a, 1.25px 0px 0px -0.75px #a6a6a6, -1.25px 0px 0px -0.75px #a6a6a6, 0px 0px 0px 0.5px #a6a6a6, 0px 8px 15px 0px #0000000a, 0px 1px 0px 0px #171717, 0px -1px 0px 0px #171717, 0px 4px 0.5px -4px #666666, 0px -4px 0.5px -4px #666666, -20px 0px 20px -30px #b2b2b2, 20px 0px 20px -30px #b2b2b2"
+        },
+        "usage": "Tepi dan bayangan Liquid Glass Regular ukuran Small (tombol kapsul kecil, bidang pencarian di toolbar)."
+      },
+      {
+        "name": "shadow-glass-sm-inactive",
+        "value": {
+          "light": "0.75px 0px 0px -0.25px #f2f2f2, -0.75px 0px 0px -0.25px #f2f2f2, 0px 0px 0px 0.5px #ebebeb",
+          "dark": "1px 0px 0px -0.5px #cccccc, -1px 0px 0px -0.5px #cccccc, 0px 0px 0px 0.5px #e6e6e6"
+        },
+        "usage": "Tepi Liquid Glass Small saat jendela tidak aktif."
+      },
+      {
+        "name": "shadow-knob",
+        "value": {
+          "light": "0px 3px 36px 0px #0000000d",
+          "dark": "0px 0px 1px 0px #ffffff1a, -1.75px -2.5px 2px -1.5px #ffffff, 1.75px 2.5px 1px -1.5px #ffffff, 0px 0px 1px -0.25px #0000000d, 0px 0px 4px -0.5px #0000000d, 0px 0px 44px 0px #0000001a"
+        },
+        "usage": "Bayangan knob switch saat idle."
+      },
+      {
+        "name": "shadow-slider-knob",
+        "value": {
+          "light": "0px 1px 5px 0px #0000001a",
+          "dark": "0px 1px 5px 0px #0000001a"
+        },
+        "usage": "Bayangan knob slider saat idle."
+      },
+      {
+        "name": "shadow-tooltip",
+        "value": {
+          "light": "0px 0px 2px 0px #00000066, 0px 2px 8px 0px #00000033",
+          "dark": "0px 0px 0px 0.6px #ffffff26, 0px 0px 2px 0px #00000066, 0px 2px 8px 0px #00000033"
+        },
+        "usage": "Bayangan tooltip. Tema gelap menambah garis tepi tipis putih."
+      }
+    ]
+  }
+}
